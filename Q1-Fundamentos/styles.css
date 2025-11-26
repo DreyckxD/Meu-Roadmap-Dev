@@ -1,0 +1,77 @@
+body{}
+
+/* 1. Reset básico e visualização */
+* {
+    box-sizing: border-box; /* Garante que padding e bordas não aumentam o tamanho total */
+    margin: 0;
+    padding: 0;
+}
+
+/* ------------------------------------------- */
+/* 2. O CONTAINER PRINCIPAL (onde o Grid acontece) */
+/* ------------------------------------------- */
+
+.grid-container {
+    display: grid;
+    min-height: 100vh; /* Garante que o container ocupa toda a altura da tela */
+    gap: 10px; /* Adiciona espaçamento entre os itens do Grid (melhora a visualização) */
+    background-color: #f4f4f4;
+
+    /* A. DEFINIÇÃO DAS COLUNAS (3 COLUNAS) */
+    grid-template-columns: 200px 1fr 150px; 
+    /* Coluna 1: 200px de largura fixa (Sidebar Esquerda) */
+    /* Coluna 2: 1fr (1 fração, ocupa todo o espaço restante) (Conteúdo Principal) */
+    /* Coluna 3: 150px de largura fixa (Sidebar Direita) */
+
+    /* B. DEFINIÇÃO DAS LINHAS (3 LINHAS) */
+    grid-template-rows: 80px auto 50px;
+    /* Linha 1: 80px de altura (Header) */
+    /* Linha 2: auto (Altura variável, adapta-se ao conteúdo) (Conteúdo principal) */
+    /* Linha 3: 50px de altura (Footer) */
+
+    /* C. POSICIONAMENTO DOS ITENS (O DESENHO) */
+    grid-template-areas:
+        "header header header"          /* O cabeçalho ocupa as 3 colunas da primeira linha */
+        "sidebar-left main sidebar-right" /* O conteúdo central */
+        "footer footer footer";          /* O rodapé ocupa as 3 colunas da última linha */
+}
+
+/* ------------------------------------------- */
+/* 3. POSICIONAMENTO DOS ITENS (Grid Items) */
+/* ------------------------------------------- */
+
+/* Associa cada classe à sua área nomeada */
+.header { grid-area: header; background: #2c3e50; color: white; padding: 20px; }
+.sidebar-left { grid-area: sidebar-left; background: #ecf0f1; padding: 20px; }
+.main-content { grid-area: main; background: #ffffff; padding: 20px; }
+.sidebar-right { grid-area: sidebar-right; background: #ecf0f1; padding: 20px; }
+.footer { grid-area: footer; background: #2c3e50; color: white; padding: 15px; text-align: center; }
+
+/* Centraliza o texto para melhor visualização */
+.grid-container > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    font-size: 1.2em;
+}
+@media (max-width: 600px){
+    .grid-container {
+        /* 1. Mudar o Grid Template Columns */
+        /* Objetivo: Ter apenas uma coluna que ocupe 100% da largura. */
+        grid-template-columns: 1fr; /* Apenas uma coluna */
+        
+       
+       /* 2. Mudar o Grid Template Areas */
+        /* Objetivo: Fazer com que todos os itens fiquem empilhados verticalmente. */
+        grid-template-areas:
+            "header"
+            "main"
+            "sidebar-left"
+            "sidebar-right"
+            "footer";
+             /* Cada área em sua própria linha */
+
+             /* Opcional: Ajustar o tamanho da fonte ou padding para mobile */
+    }
+}
